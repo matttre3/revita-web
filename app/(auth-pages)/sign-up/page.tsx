@@ -4,7 +4,7 @@ import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { SmtpMessage } from "../smtp-message";
+import Image from "next/image";
 
 export default function Signup({ searchParams }: { searchParams: Message }) {
   if ("message" in searchParams) {
@@ -17,32 +17,43 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
 
   return (
     <>
-      <form className="flex flex-col min-w-64 max-w-64 mx-auto">
-        <h1 className="text-2xl font-medium">Sign up</h1>
-        <p className="text-sm text text-foreground">
-          Already have an account?{" "}
-          <Link className="text-primary font-medium underline" href="/sign-in">
-            Sign in
-          </Link>
-        </p>
-        <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-          <Label htmlFor="email">Email</Label>
-          <Input name="email" placeholder="you@example.com" required />
-          <Label htmlFor="password">Password</Label>
-          <Input
-            type="password"
-            name="password"
-            placeholder="Your password"
-            minLength={6}
-            required
-          />
-          <SubmitButton formAction={signUpAction} pendingText="Signing up...">
-            Sign up
-          </SubmitButton>
-          <FormMessage message={searchParams} />
-        </div>
-      </form>
-      <SmtpMessage />
+      <div className="container mx-auto flex-col  pl-3 pr-3 h-full">
+        <Image
+          src="/images/logo.png"
+          width={250}
+          height={250}
+          alt="logo revita"
+          className="mx-auto"
+        />
+        <form className="flex-1 items-stretch flex flex-col">
+          <h1 className="text-primary font-bold text-4xl mb-3">Sign up</h1>
+          <p className="text-sm text text-foreground">
+            Already have an account?{" "}
+            <Link
+              className="text-primary font-medium underline"
+              href="/sign-in"
+            >
+              Sign in
+            </Link>
+          </p>
+          <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+            <Label htmlFor="email">Email</Label>
+            <Input name="email" placeholder="you@example.com" required />
+            <Label htmlFor="password">Password</Label>
+            <Input
+              type="password"
+              name="password"
+              placeholder="Your password"
+              minLength={6}
+              required
+            />
+            <SubmitButton formAction={signUpAction} pendingText="Signing up...">
+              Sign up
+            </SubmitButton>
+            <FormMessage message={searchParams} />
+          </div>
+        </form>
+      </div>
     </>
   );
 }
