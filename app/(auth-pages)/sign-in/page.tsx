@@ -9,13 +9,15 @@ import Image from "next/image";
 export default function Login({ searchParams }: { searchParams: Message }) {
   return (
     <div className="container mx-auto flex-col  pl-3 pr-3 h-full">
-      <Image
-        src="/images/logo.png"
-        width={250}
-        height={250}
-        alt="logo revita"
-        className="mx-auto"
-      />
+      <Link href="/">
+        <Image
+          src="/images/logo.png"
+          width={250}
+          height={250}
+          alt="logo revita"
+          className="mx-auto"
+        />
+      </Link>
 
       <form className="flex-1 items-stretch flex flex-col ">
         <h1 className="text-primary font-bold text-4xl mb-3">Sign in</h1>

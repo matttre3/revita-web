@@ -30,7 +30,7 @@ export const signUpAction = async (formData: FormData) => {
     return encodedRedirect(
       "success",
       "/sign-up",
-      "Thanks for signing up! Please check your email for a verification link.",
+      "Thanks for signing up! Please check your email for a verification link."
     );
   }
 };
@@ -49,7 +49,22 @@ export const signInAction = async (formData: FormData) => {
     return encodedRedirect("error", "/sign-in", error.message);
   }
 
-  return redirect("/protected");
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const {
+    data: records,
+    error: countError,
+    count: recordCount,
+  } = await supabase
+    .from("userData")
+    .select("*", { count: "exact" })
+    .eq("user_id", user?.id);
+
+  if (recordCount == 0) {
+    return redirect("/protected");
+  } else return redirect("/protected/home");
 };
 
 export const forgotPasswordAction = async (formData: FormData) => {
@@ -71,7 +86,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
     return encodedRedirect(
       "error",
       "/forgot-password",
-      "Could not reset password",
+      "Could not reset password"
     );
   }
 
@@ -82,7 +97,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
   return encodedRedirect(
     "success",
     "/forgot-password",
-    "Check your email for a link to reset your password.",
+    "Check your email for a link to reset your password."
   );
 };
 
@@ -96,7 +111,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Password and confirm password are required",
+      "Password and confirm password are required"
     );
   }
 
@@ -104,7 +119,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Passwords do not match",
+      "Passwords do not match"
     );
   }
 
@@ -116,7 +131,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Password update failed",
+      "Password update failed"
     );
   }
 
@@ -127,4 +142,42 @@ export const signOutAction = async () => {
   const supabase = createClient();
   await supabase.auth.signOut();
   return redirect("/sign-in");
+};
+
+export const insertUserDataAction = async (formData: FormData) => {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const gender = formData.get("gender");
+  const weight = formData.get("weight");
+  const height = formData.get("height");
+  const age = formData.get("age");
+  const activity =
+    formData.get("activity") === "No exercise"
+      ? 0
+      : formData.get("activity") === "Light exercise (1 or 2 x week)"
+        ? 1
+        : formData.get("activity") === "Moderate exercise (3 or 5 x week)"
+          ? 2
+          : formData.get("activity") === "Heavy exercise (6 or 7 x week)"
+            ? 3
+            : formData.get("activity") === "Very heavy (Twice x day)"
+              ? 4
+              : -1;
+
+  const { data, error } = await supabase.from("userData").insert([
+    {
+      user_id: user?.id,
+      gender: gender,
+      current_weight: weight,
+      height: height,
+      age: age,
+      activity_level: activity,
+    },
+  ]);
+  if (!error) {
+    return redirect("/protected/home");
+  }
 };

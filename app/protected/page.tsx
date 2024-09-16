@@ -1,9 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
-import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
-import { signOutAction } from "../actions";
-import AuthButton from "@/components/header-auth";
+import Flow from "@/components/Flow";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -18,10 +15,13 @@ export default async function ProtectedPage() {
 
   return (
     <>
-      <div className="flex-1 w-full flex flex-col gap-12">
-        you are logged in
+      <div className="container mx-auto pl-3 pr-3 h-full">
+        <div className="flex flex-col items-center justify-center ">
+          <div className="flex items-center flex-col gap-4">
+            <Flow></Flow>
+          </div>
+        </div>
       </div>
-      <AuthButton></AuthButton>
     </>
   );
 }
