@@ -57,12 +57,11 @@ export const signInAction = async (formData: FormData) => {
     data: records,
     error: countError,
     count: recordCount,
-  } = await supabase
-    .from("userData")
-    .select("*", { count: "exact" })
-    .eq("user_id", user?.id);
+  } = await supabase.from("userData").select("*").eq("user_id", user?.id);
 
-  if (recordCount == 0) {
+  console.log({ records });
+
+  if (records && records?.length == 0) {
     return redirect("/protected");
   } else return redirect("/protected/home");
 };
@@ -154,18 +153,8 @@ export const insertUserDataAction = async (formData: FormData) => {
   const weight = formData.get("weight");
   const height = formData.get("height");
   const age = formData.get("age");
-  const activity =
-    formData.get("activity") === "No exercise"
-      ? 0
-      : formData.get("activity") === "Light exercise (1 or 2 x week)"
-        ? 1
-        : formData.get("activity") === "Moderate exercise (3 or 5 x week)"
-          ? 2
-          : formData.get("activity") === "Heavy exercise (6 or 7 x week)"
-            ? 3
-            : formData.get("activity") === "Very heavy (Twice x day)"
-              ? 4
-              : -1;
+  const activity = formData.get("activity");
+  console.log(activity);
 
   const { data, error } = await supabase.from("userData").insert([
     {

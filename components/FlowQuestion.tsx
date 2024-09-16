@@ -25,13 +25,13 @@ export default function FlowQuestion({
             {question}
           </Label>
           {radioAnswers &&
-            radioAnswers.map((answer) => (
+            radioAnswers.map((answer, index) => (
               <div key={answer} className="flex items-center">
                 <Input
                   type="radio"
                   id={answer}
                   name={name}
-                  value={answer}
+                  value={index}
                   required
                 />
                 <Label htmlFor={answer} className="ml-2">
