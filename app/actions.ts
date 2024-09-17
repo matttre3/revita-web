@@ -158,7 +158,7 @@ export const insertUserDataAction = async (formData: FormData) => {
   const age = parseInt(formData.get("age")!.toString());
   const activity = parseInt(formData.get("activity")!.toString());
 
-  if(user?.id && gender && weight && height && age && activity) {
+  if(user?.id) {
     const { data, error } = await supabase.from("userData").insert(
     { 
       gender: gender,

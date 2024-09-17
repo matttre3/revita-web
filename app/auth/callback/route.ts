@@ -1,3 +1,4 @@
+import { Database } from "@/database.types";
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
@@ -11,7 +12,7 @@ export async function GET(request: Request) {
   const redirectTo = requestUrl.searchParams.get("redirect_to")?.toString();
 
   if (code) {
-    const supabase = createClient();
+    const supabase = createClient<Database>();
     await supabase.auth.exchangeCodeForSession(code);
   }
 

@@ -2,9 +2,10 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Flow from "@/components/Flow";
 import Container from "@/components/Container";
+import { Database } from "@/database.types";
 
 export default async function ProtectedPage() {
-  const supabase = createClient();
+  const supabase = createClient<Database>();
 
   const {
     data: { user },
