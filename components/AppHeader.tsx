@@ -6,9 +6,9 @@ import Image from "next/image";
 export default function AppHeader() {
   return (
     <div className="container mx-auto bg-red-700 rounded-b-2xl">
-      <div className="flex items-center justify-between pl-4">
+      <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <h1 className="text-3xl font-bold text-white ">Revita</h1>
+          <h1 className="text-3xl font-bold text-white">Revita</h1>
           <Link href="/">
             <Image
               src="/images/logo-white.png"
@@ -19,7 +19,7 @@ export default function AppHeader() {
             />
           </Link>
         </div>
-        <div className="pr-4">
+        <div className="">
           <AuthButton></AuthButton>
         </div>
       </div>

@@ -51,25 +51,41 @@ async function readKcalData() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  let { data: KcalData, error } = await supabase
-    .from("userData")
-    .select("*")
-    .eq("user_id", user!.id);
+  if (user?.id) {
+    let { data: KcalData, error } = await supabase
+      .from("userData")
+      .select("*")
+      .eq("user_id", user!.id);
 
-  if (error) {
-    console.error("Error fetching user data:", error);
-    KcalData = [];
+    if (error) {
+      console.error("Error fetching user data:", error);
+      KcalData = [];
+    }
+
+    if (KcalData && KcalData.length > 0) {
+      const activityLevelNumber = KcalData[0].activity_level as ActivityLevel;
+      let REE = calculateREE(KcalData[0]);
+      let PAL = REE * ActivityLevelMap[activityLevelNumber];
+      return PAL;
+    } else return 0;
   }
-
-  if (KcalData && KcalData.length > 0) {
-    const activityLevelNumber = KcalData[0].activity_level as ActivityLevel;
-    let REE = calculateREE(KcalData[0]);
-    let PAL = REE * ActivityLevelMap[activityLevelNumber];
-    return PAL;
-  } else return 0;
 }
 
 export default async function KcalCounter() {
   let PAL = await readKcalData();
-  return <div>{PAL}</div>;
+  return (
+    <>
+      {PAL && (
+        <div className="flex lg:flex-row flex-col  items-center gap-7 border border-slate-300">
+          <p className="text-xl">
+            According to our calculation, your daily caloric requirement is
+          </p>
+          <p className="text-4xl lg:text-6xl font-bold text-primary">
+            {Math.floor(PAL)} <span className="text-2xl lg:text-3xl">KCal</span>
+          </p>
+        </div>
+      )}
+      {!PAL && <div>ciao</div>}
+    </>
+  );
 }
