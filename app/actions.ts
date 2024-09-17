@@ -4,11 +4,12 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { Database } from "@/database.types";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
-  const supabase = createClient();
+  const supabase = createClient<Database>();
   const origin = headers().get("origin");
 
   if (!email || !password) {
@@ -38,7 +39,7 @@ export const signUpAction = async (formData: FormData) => {
 export const signInAction = async (formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
-  const supabase = createClient();
+  const supabase = createClient<Database>();
 
   const { error } = await supabase.auth.signInWithPassword({
     email,
@@ -53,22 +54,24 @@ export const signInAction = async (formData: FormData) => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const {
-    data: records,
-    error: countError,
-    count: recordCount,
-  } = await supabase.from("userData").select("*").eq("user_id", user?.id);
+  if (user?.id){
+    const {
+      data: records,
+      error: countError,
+      count: recordCount,
+    } = await supabase.from("userData").select("*").eq("user_id", user.id);
+   
+    console.log({ records });
 
-  console.log({ records });
-
-  if (records && records?.length == 0) {
-    return redirect("/protected");
-  } else return redirect("/protected/home");
+    if (records && records?.length == 0) {
+      return redirect("/protected");
+    } else return redirect("/protected/home");
+  }
 };
 
 export const forgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
-  const supabase = createClient();
+  const supabase = createClient<Database>();
   const origin = headers().get("origin");
   const callbackUrl = formData.get("callbackUrl")?.toString();
 
@@ -101,7 +104,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
 };
 
 export const resetPasswordAction = async (formData: FormData) => {
-  const supabase = createClient();
+  const supabase = createClient<Database>();
 
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
@@ -138,35 +141,37 @@ export const resetPasswordAction = async (formData: FormData) => {
 };
 
 export const signOutAction = async () => {
-  const supabase = createClient();
+  const supabase = createClient<Database>();
   await supabase.auth.signOut();
   return redirect("/sign-in");
 };
 
 export const insertUserDataAction = async (formData: FormData) => {
-  const supabase = createClient();
+  const supabase = createClient<Database>();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const gender = formData.get("gender");
-  const weight = formData.get("weight");
-  const height = formData.get("height");
-  const age = formData.get("age");
-  const activity = formData.get("activity");
-  console.log(activity);
+  const gender = parseInt(formData.get("gender")!.toString());
+  const weight = parseInt(formData.get("weight")!.toString());
+  const height = parseInt(formData.get("height")!.toString());
+  const age = parseInt(formData.get("age")!.toString());
+  const activity = parseInt(formData.get("activity")!.toString());
 
-  const { data, error } = await supabase.from("userData").insert([
-    {
-      user_id: user?.id,
+  if(user?.id && gender && weight && height && age && activity) {
+    const { data, error } = await supabase.from("userData").insert(
+    { 
       gender: gender,
       current_weight: weight,
       height: height,
       age: age,
       activity_level: activity,
-    },
-  ]);
+      user_id: user?.id,
+    } 
+  );
+
   if (!error) {
     return redirect("/protected/home");
-  }
+  }}
+  
 };
