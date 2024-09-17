@@ -14,7 +14,7 @@ export default function RootLayout({
       <body>
         <AppHeader></AppHeader>
         {children}
-        <div className="mt-12 container mx-auto flex justify-center border-slate-100 border max-w-6">
+        <div className="mt-12 container mx-auto flex justify-center max-w-6">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
