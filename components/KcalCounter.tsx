@@ -52,11 +52,10 @@ async function readKcalData() {
   } = await supabase.auth.getUser();
 
   if (user?.id) {
-    const userId = user.id;
     let { data: KcalData, error } = await supabase
       .from("userData")
       .select("*")
-      .eq("user_id", userId);
+      .eq("user_id", user?.id);
 
     if (error) {
       console.error("Error fetching user data:", error);
