@@ -159,7 +159,7 @@ export const insertUserDataAction = async (formData: FormData) => {
   const activity = parseInt(formData.get("activity")!.toString());
 
   if(user?.id) {
-    const { data, error } = await supabase.from("userData").insert(
+    const { data, error } = await supabase.from("userData").upsert(
     { 
       gender: gender,
       current_weight: weight,
@@ -167,8 +167,11 @@ export const insertUserDataAction = async (formData: FormData) => {
       age: age,
       activity_level: activity,
       user_id: user?.id,
-    } 
+    } , { onConflict: 'user_id'}
   );
+
+  console.log({data})
+  console.log({error})
 
   if (!error) {
     return redirect("/protected/home");
