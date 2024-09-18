@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { submitWeight } from "@/app/actions";
 
 export default function () {
   const [isOpen, setOpen] = useState(false);
+  let date = new Date().toISOString().split("T")[0];
   return (
     <>
       <div className="flex lg:flex-row flex-col justify-center text-center lg:text-left lg:justify-between items-center gap-3 lg:gap-7 border rounded-md border-slate-300 pr-4 pl-4 pt-2 pb-2 mt-4">
@@ -19,22 +22,39 @@ export default function () {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
           >
             <motion.div
               className="bg-white rounded-lg p-6 w-96 shadow-lg relative"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
               transition={{ duration: 0.2 }}
             >
               <Button
                 className="absolute top-2 right-2"
                 onClick={() => setOpen(false)}
               >
-                X
+                &#10005;
               </Button>
-              <form action="">
-                <Input type="number" />
+              <form className="flex flex-col gap-4" action={submitWeight}>
+                <p>
+                  Insert your daily <br></br>
+                  <span className="text-4xl lg:text-6xl font-bold text-primary">
+                    weight
+                  </span>
+                </p>
+                <p>{date}</p>
+                <Input
+                  type="number"
+                  step="0.01"
+                  name="weight"
+                  placeholder="Your weight"
+                />
+                <Button onClick={() => setOpen(false)} type="submit">
+                  Insert weight
+                </Button>
               </form>
             </motion.div>
           </motion.div>

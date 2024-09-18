@@ -178,3 +178,29 @@ export const insertUserDataAction = async (formData: FormData) => {
   }}
   
 };
+
+export const submitWeight = async (formData: FormData) => {
+  const supabase = createClient<Database>();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let date = new Date()
+
+  const formWeight = formData.get("weight") 
+
+  if(user?.id && formWeight) {
+    const weight = parseFloat(formWeight.toString());
+    const { data, error } = await supabase.from("weightLogs").upsert(
+    { 
+      weight : weight,
+      date: date.toISOString(),
+      user_id: user?.id,
+    }, { onConflict: 'user_id'}
+  );
+
+  console.log(error)
+
+
+  }
+}
