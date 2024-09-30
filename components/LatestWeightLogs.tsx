@@ -38,11 +38,13 @@ export default async function LatestWeightLogs() {
         <div className="flex flex-col gap-3 mt-4">
           {latestWeightLogs.map((log) => (
             <div
-              className="flex flex-col text-xl border border-slate-400 rounded-md pl-2 pr-2 pt-1 pb-1"
+              className="flex justify-between text-xl border border-slate-300 rounded-md pl-2 pr-2 pt-1 pb-1"
               key={log.id}
             >
-              <p>{log.weight} Kg</p>
-              <p>{log.date}</p>
+              <p className="text-primary font-semibold text-xl">
+                {log.weight} Kg
+              </p>
+              <p className="text-md">{log.date}</p>
             </div>
           ))}
         </div>
