@@ -169,9 +169,15 @@ export const insertUserDataAction = async (formData: FormData) => {
     } , { onConflict: 'user_id'}
   );
 
-  console.log({data})
-  console.log({error})
 
+  await supabase.from("weightLogs").insert(
+    { 
+      weight : weight,
+      date: new Date().toISOString().split("T")[0],
+      user_id: user?.id,
+    },
+  );
+  
   if (!error) {
     return redirect("/protected/home");
   }}
@@ -198,8 +204,16 @@ export const submitWeight = async (formData: FormData) => {
     },
   );
 
+  if(user?.id && formWeight) {
+    const weight = parseFloat(formWeight.toString());
+    await supabase.from("userData").update(
+    { 
+      current_weight : weight,
+    }
+  ).eq('user_id', user?.id,)
   console.log(error)
 
 
   }
+}
 }

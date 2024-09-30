@@ -33,7 +33,7 @@ export default async function LatestWeightLogs() {
   console.log(latestWeightLogs?.length);
   return (
     latestWeightLogs && (
-      <div className="w-1/3">
+      <div className="w-full lg:w-1/3">
         <H2>Most recent weight logs</H2>
         <div className="flex flex-col gap-3 mt-4">
           {latestWeightLogs.map((log) => (

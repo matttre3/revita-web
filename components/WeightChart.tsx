@@ -70,7 +70,7 @@ const WeightChart = ({ weightLogs }: WeightChartProps) => {
   };
 
   return (
-    <div className="w-2/3">
+    <div className="w-full lg:w-2/3">
       <Line data={data} options={options} />
     </div>
   );

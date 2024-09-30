@@ -35,7 +35,7 @@ export default async function WeightTracker() {
   return (
     <>
       <div className="border border-slate-300 rounded-md mt-10 pr-4 pl-4 pt-5 pb-5">
-        <div className="flex">
+        <div className="flex flex-col lg:flex-row">
           {weightLogs && <WeightChart weightLogs={weightLogs} />}
           <LatestWeightLogs></LatestWeightLogs>
         </div>
