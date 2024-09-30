@@ -33,9 +33,6 @@ const WeightChart = ({ weightLogs }: WeightChartProps) => {
   const weights = weightLogs.map((entry) => entry.weight);
 
   const data = {
-    legend: {
-      display: false,
-    },
     labels: dates,
     datasets: [
       {
@@ -49,9 +46,12 @@ const WeightChart = ({ weightLogs }: WeightChartProps) => {
   };
 
   const options = {
-    legend: {
-      display: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
     },
+
     scales: {
       y: {
         beginAtZero: false,
