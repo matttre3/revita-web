@@ -1,5 +1,4 @@
 "use server";
-
 import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
@@ -191,12 +190,12 @@ export const submitWeight = async (formData: FormData) => {
 
   if(user?.id && formWeight) {
     const weight = parseFloat(formWeight.toString());
-    const { data, error } = await supabase.from("weightLogs").upsert(
+    const { data, error } = await supabase.from("weightLogs").insert(
     { 
       weight : weight,
       date: date.toISOString(),
       user_id: user?.id,
-    }, { onConflict: 'user_id'}
+    },
   );
 
   console.log(error)
