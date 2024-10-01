@@ -201,19 +201,18 @@ export const submitWeight = async (formData: FormData) => {
       weight : weight,
       date: date.toISOString(),
       user_id: user?.id,
-    },
-  );
+    });
 
-  if(user?.id && formWeight) {
-    const weight = parseFloat(formWeight.toString());
+    const weightToUserData = parseFloat(formWeight.toString());
     await supabase.from("userData").update(
     { 
       current_weight : weight,
     }
   ).eq('user_id', user?.id,)
   console.log(error)
+ 
+  return redirect("/protected/home");
+  
 
-
-  }
 }
 }

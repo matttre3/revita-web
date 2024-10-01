@@ -35,18 +35,25 @@ export default async function LatestWeightLogs() {
     latestWeightLogs && (
       <div className="w-full lg:w-1/3">
         <H2>Most recent weight logs</H2>
-        <div className="flex flex-col gap-3 mt-4">
-          {latestWeightLogs.map((log) => (
-            <div
-              className="flex justify-between text-xl border border-slate-300 rounded-md pl-2 pr-2 pt-1 pb-1"
-              key={log.id}
-            >
-              <p className="text-primary font-semibold text-xl">
-                {log.weight} Kg
-              </p>
-              <p className="text-md">{log.date}</p>
+        <div className=" flex flex-col items-center">
+          <div className="flex w-full flex-col gap-3 mt-4">
+            {latestWeightLogs.map((log) => (
+              <div
+                className="flex justify-between text-xl border border-slate-300 rounded-md pl-4 pr-4 pt-1 pb-1"
+                key={log.id}
+              >
+                <p className="text-primary font-semibold text-xl">
+                  {log.weight} Kg
+                </p>
+                <p className="text-md">{log.date}</p>
+              </div>
+            ))}
+          </div>
+          {latestWeightLogs.length > 4 && (
+            <div className="text-primary font-semibold text-md  w-fit p-1 pl-5 pr-5 text-center">
+              See more logs
             </div>
-          ))}
+          )}
         </div>
       </div>
     )
