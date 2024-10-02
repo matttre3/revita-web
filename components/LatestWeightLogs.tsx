@@ -16,13 +16,13 @@ async function readWeight() {
       .from("weightLogs")
       .select("*")
       .eq("user_id", `${user.id}`)
+      .order("date", { ascending: false })
       .limit(5);
 
     if (error) {
       console.error("Error fetching weight logs:", error);
       return null;
     }
-
     return weightLogs;
   }
   return null;
@@ -30,7 +30,7 @@ async function readWeight() {
 
 export default async function LatestWeightLogs() {
   const latestWeightLogs = await readWeight();
-  console.log(latestWeightLogs?.length);
+  console.log(latestWeightLogs);
   return (
     latestWeightLogs && (
       <div className="w-full lg:w-1/3">

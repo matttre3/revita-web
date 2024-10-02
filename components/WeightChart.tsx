@@ -57,13 +57,13 @@ const WeightChart = ({ weightLogs }: WeightChartProps) => {
         beginAtZero: false,
         title: {
           display: true,
-          text: "Peso (kg)",
+          text: "Weight (kg)",
         },
       },
       x: {
         title: {
           display: true,
-          text: "Data",
+          text: "Date",
         },
       },
     },
