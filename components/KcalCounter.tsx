@@ -1,8 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { Database } from "../database.types";
-import { GetStaticProps } from "next";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import NutrientsCalculator from "./NutrientsCalculator";
 
 async function readKcalData() {
   enum Gender {
@@ -72,35 +72,57 @@ async function readKcalData() {
 
     if (KcalData && KcalData.length > 0) {
       const activityLevelNumber = KcalData[0].activity_level as ActivityLevel;
-      let REE = calculateREE(KcalData[0]);
-      let PAL =
+      const REE = calculateREE(KcalData[0]);
+      const PAL =
         REE * ActivityLevelMap[activityLevelNumber] * dietMap[KcalData[0].diet];
-      return PAL;
-    } else return 0;
+      return [PAL, dietMap[KcalData[0].diet]];
+    }
+    return [];
   }
+  return [];
 }
 
 export default async function KcalCounter() {
-  let PAL = await readKcalData();
+  const result: number[] = await readKcalData();
+  const PAL = result[0];
+  const dietValue = result[1];
+
   return (
     <>
       {PAL && (
-        <div className="flex  lg:flex-row flex-col justify-center text-center lg:text-left lg:justify-between items-center gap-3 lg:gap-7 border rounded-md border-slate-300 pr-4 pl-4 pt-2 pb-2 mt-4">
-          <p className="text-xl">
-            According to our calculation, your daily caloric requirement is:
-          </p>
-          <div className="flex items-center gap-10">
-            <p className="text-4xl lg:text-6xl font-bold text-primary">
-              {Math.floor(PAL)}{" "}
-              <span className="text-2xl lg:text-3xl">KCal</span>
+        <div className="flex flex-col gap-4 lg:gap-7 border rounded-md border-slate-300 pr-4 pl-4 pt-2 pb-2 mt-4">
+          <div className="flex w-full gap-4 lg:flex-row flex-col justify-center text-center lg:text-left lg:justify-between items-center">
+            <p className="text-xl">
+              According to our calculation, your daily caloric requirement is:
             </p>
-            <Link href={"/protected"}>
-              <Button>Recalculate</Button>
-            </Link>
+            <div className="flex items-center gap-10">
+              <p className="text-4xl lg:text-6xl font-bold text-primary">
+                {Math.floor(PAL)}
+                <span className="text-2xl lg:text-3xl">KCal</span>
+              </p>
+              <Link href={"/protected"}>
+                <Button>Recalculate</Button>
+              </Link>
+            </div>
           </div>
+
+          <NutrientsCalculator
+            dietValue={dietValue}
+            PAL={Math.floor(PAL)}
+          ></NutrientsCalculator>
+
+          {!PAL && (
+            <>
+              <p className="text-xl">
+                Input your information and calculate your daily kcal
+              </p>
+              <Link href={"/protected"}>
+                <Button>Calculate your daily caloric requirement</Button>
+              </Link>
+            </>
+          )}
         </div>
       )}
-      {!PAL && <div>ciao</div>}
     </>
   );
 }
