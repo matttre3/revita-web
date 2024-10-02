@@ -60,7 +60,7 @@ export const signInAction = async (formData: FormData) => {
       count: recordCount,
     } = await supabase.from("userData").select("*").eq("user_id", user.id);
    
-    console.log({ records });
+//console.log({ records });
 
     if (records && records?.length == 0) {
       return redirect("/protected");
@@ -197,23 +197,48 @@ export const submitWeight = async (formData: FormData) => {
   const formWeight = formData.get("weight") 
 
   if(user?.id && formWeight) {
-    const weight = parseFloat(formWeight.toString());
-    const { data, error } = await supabase.from("weightLogs").insert(
-    { 
-      weight : weight,
-      date: date.toISOString(),
-      user_id: user?.id,
-    });
 
-    const weightToUserData = parseFloat(formWeight.toString());
-    await supabase.from("userData").update(
-    { 
-      current_weight : weight,
+    const { data:checkData, error:checkError } = await supabase.from("weightLogs").select('*').eq('user_id',user?.id).eq('date',date.toISOString())
+    console.log(checkData)
+
+    if (checkData && checkData.length > 0){   
+      const weight = parseFloat(formWeight.toString());
+      const { data, error } = await supabase.from("weightLogs").update(
+      { 
+        weight : weight,
+        date: date.toISOString(),
+        user_id: user?.id,
+      },).eq('user_id', user?.id,).eq('date',date.toISOString())
+  
+      await supabase.from("userData").update(
+      { 
+        current_weight : weight,
+      }
+    ).eq('user_id', user?.id,)
+  
+   
+    return redirect("/protected/home");} else {
+
+      const weight = parseFloat(formWeight.toString());
+      const { data, error } = await supabase.from("weightLogs").insert(
+      { 
+        weight : weight,
+        date: date.toISOString(),
+        user_id: user?.id,
+      },)
+  
+   
+      await supabase.from("userData").update(
+      { 
+        current_weight : weight,
+      }
+    ).eq('user_id', user?.id,)
+
+   
+    return redirect("/protected/home");
     }
-  ).eq('user_id', user?.id,)
-  console.log(error)
- 
-  return redirect("/protected/home");
+
+   
   
 
 }

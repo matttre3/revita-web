@@ -11,7 +11,7 @@ async function readWeight() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  console.log({ user });
+  //console.log({ user });
 
   if (user?.id) {
     let { data: weightLogs, error } = await supabase
@@ -31,7 +31,7 @@ async function readWeight() {
 
 export default async function WeightTracker() {
   const weightLogs = await readWeight();
-  console.log(weightLogs);
+  //console.log(weightLogs);
   return (
     <>
       <div className="border border-slate-300 rounded-md mt-10 pr-4 pl-4 pt-5 pb-5">

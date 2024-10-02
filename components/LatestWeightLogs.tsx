@@ -9,7 +9,7 @@ async function readWeight() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  console.log({ user });
+  //console.log({ user });
 
   if (user?.id) {
     let { data: weightLogs, error } = await supabase
@@ -30,7 +30,7 @@ async function readWeight() {
 
 export default async function LatestWeightLogs() {
   const latestWeightLogs = await readWeight();
-  console.log(latestWeightLogs);
+  //console.log(latestWeightLogs);
   return (
     latestWeightLogs && (
       <div className="w-full lg:w-1/3">
