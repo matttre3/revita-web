@@ -18,6 +18,12 @@ async function readKcalData() {
     VeryHeavy = 4,
   }
 
+  const dietMap: Record<number, number> = {
+    0: 0.8,
+    1: 1,
+    2: 1.2,
+  };
+
   const ActivityLevelMap = {
     [ActivityLevel.No]: 1.2,
     [ActivityLevel.Light]: 1.375,
@@ -67,7 +73,8 @@ async function readKcalData() {
     if (KcalData && KcalData.length > 0) {
       const activityLevelNumber = KcalData[0].activity_level as ActivityLevel;
       let REE = calculateREE(KcalData[0]);
-      let PAL = REE * ActivityLevelMap[activityLevelNumber];
+      let PAL =
+        REE * ActivityLevelMap[activityLevelNumber] * dietMap[KcalData[0].diet];
       return PAL;
     } else return 0;
   }

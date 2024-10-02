@@ -41,6 +41,12 @@ export default function Flow() {
       ],
       name: "activity",
     },
+    {
+      question: "What is your objective?",
+      type: "radio",
+      radioAnswers: ["Losing weight", "Mantaining weight", "Gaining weight"],
+      name: "diet",
+    },
   ];
 
   return (

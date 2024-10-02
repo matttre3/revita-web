@@ -156,6 +156,7 @@ export const insertUserDataAction = async (formData: FormData) => {
   const height = parseInt(formData.get("height")!.toString());
   const age = parseInt(formData.get("age")!.toString());
   const activity = parseInt(formData.get("activity")!.toString());
+  const diet = parseInt(formData.get("diet")!.toString());
 
   if(user?.id) {
     const { data, error } = await supabase.from("userData").upsert(
@@ -166,6 +167,7 @@ export const insertUserDataAction = async (formData: FormData) => {
       age: age,
       activity_level: activity,
       user_id: user?.id,
+      diet: diet
     } , { onConflict: 'user_id'}
   );
 
