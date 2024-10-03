@@ -3,6 +3,7 @@ import { Database } from "../database.types";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import NutrientsCalculator from "./NutrientsCalculator";
+import KcalProgressBar from "./KcalProgressBar";
 
 async function readKcalData() {
   enum Gender {
@@ -110,6 +111,8 @@ export default async function KcalCounter() {
             dietValue={dietValue}
             PAL={Math.floor(PAL)}
           ></NutrientsCalculator>
+
+          <KcalProgressBar PAL={Math.floor(PAL)}></KcalProgressBar>
 
           {!PAL && (
             <>
