@@ -51,7 +51,7 @@ export default function NutrientsCalculator({
   const nutrientKeys: MacronutrientKeys[] = ["protein", "carbs", "fat"];
 
   return (
-    <div className="flex justify-between sm:flex-row flex-col items-center md:items-start gap-4">
+    <div className="flex justify-between sm:flex-row flex-col items-start gap-4">
       {nutrientKeys.map((element) => {
         return (
           <NutrientDisplay

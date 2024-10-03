@@ -9,8 +9,6 @@ async function readWeight() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  //console.log({ user });
-
   if (user?.id) {
     let { data: weightLogs, error } = await supabase
       .from("weightLogs")

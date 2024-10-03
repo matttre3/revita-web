@@ -5,5 +5,7 @@ type Props = {
 };
 
 export default function H2({ children }: Props) {
-  return <h2 className="text-3xl text-primary font-bold ">{children}</h2>;
+  return (
+    <h2 className="text-xl md:text-3xl text-primary font-bold ">{children}</h2>
+  );
 }

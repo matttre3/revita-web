@@ -237,9 +237,35 @@ export const submitWeight = async (formData: FormData) => {
    
     return redirect("/protected/home");
     }
-
-   
-  
-
 }
+}
+
+
+export const insertFood = async (formData: FormData) => {
+  const supabase = createClient<Database>();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  let date = new Date()
+
+  const mealType = formData.get("mealType")!.toString()
+  const mealName = formData.get("mealName")!.toString()
+  const protein =  parseInt(formData.get("protein")!.toString());
+  const carbohydrate =  parseInt(formData.get("carbohydrate")!.toString());
+  const fat =  parseInt(formData.get("fat")!.toString());
+  console.log(mealName)
+
+
+  const { data, error } = await supabase.from("mealsLogs").insert(
+    { 
+      date: date.toISOString(),
+      user_id: user?.id,
+      name: mealName,
+      protein: protein,
+      carbohydrate: carbohydrate,
+      fat: fat,
+      type: mealType
+    },)
+
+    console.log(data,error)
 }

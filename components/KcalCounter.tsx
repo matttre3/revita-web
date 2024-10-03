@@ -95,7 +95,7 @@ export default async function KcalCounter() {
             <p className="text-xl">
               According to our calculation, your daily caloric requirement is:
             </p>
-            <div className="flex items-center gap-10">
+            <div className="flex items-center sm:flex-row flex-col gap-3 sm:gap-10">
               <p className="text-4xl lg:text-6xl font-bold text-primary">
                 {Math.floor(PAL)}
                 <span className="text-2xl lg:text-3xl">KCal</span>
