@@ -266,6 +266,5 @@ export const insertFood = async (formData: FormData) => {
       fat: fat,
       type: mealType
     },)
-
-    console.log(data,error)
+    return redirect("/protected/home");
 }

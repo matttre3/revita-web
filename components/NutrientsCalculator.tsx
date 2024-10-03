@@ -52,9 +52,10 @@ export default function NutrientsCalculator({
 
   return (
     <div className="flex justify-between sm:flex-row flex-col items-start gap-4">
-      {nutrientKeys.map((element) => {
+      {nutrientKeys.map((element, index) => {
         return (
           <NutrientDisplay
+            key={index}
             name={element}
             nutrient={Math.floor(currentSplit[element])}
           ></NutrientDisplay>

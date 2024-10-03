@@ -61,7 +61,7 @@ export default function InsertMealFlow() {
       <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row justify-between">
         {macroNutrients.map((macronutrient) => {
           return (
-            <div className="flex flex-col gap-2">
+            <div key={macronutrient.id} className="flex flex-col gap-2">
               <Label
                 className="text-2xl text-primary font-bold"
                 htmlFor={macronutrient.name}
