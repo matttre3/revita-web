@@ -2,6 +2,7 @@ import React from "react";
 import { createClient } from "@/utils/supabase/server";
 import { Database } from "@/database.types";
 import H2 from "./ui/H2";
+import RemoveWeight from "./RemoveWeight";
 
 async function readWeight() {
   const supabase = createClient<Database>();
@@ -37,13 +38,16 @@ export default async function LatestWeightLogs() {
           <div className="flex w-full flex-col gap-3 mt-4">
             {latestWeightLogs.map((log) => (
               <div
-                className="flex justify-between text-xl border border-slate-300 rounded-md pl-4 pr-4 pt-1 pb-1"
+                className="flex justify-between text-xl border border-slate-300 rounded-md pl-4 pr-4 pt-1 pb-1 relative"
                 key={log.id}
               >
                 <p className="text-primary font-semibold text-xl">
                   {log.weight} Kg
                 </p>
-                <p className="text-md">{log.date}</p>
+                <div className="flex gap-3">
+                  <p className="text-md">{log.date}</p>
+                  <RemoveWeight id={log.id}></RemoveWeight>
+                </div>
               </div>
             ))}
           </div>

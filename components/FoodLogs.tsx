@@ -2,6 +2,7 @@ import React from "react";
 import { createClient } from "@/utils/supabase/server";
 import { Database } from "@/database.types";
 import Image from "next/image";
+import RemoveMeal from "./RemoveMeal";
 
 async function readMeals() {
   let date = new Date().toISOString();
@@ -37,10 +38,10 @@ export default async function FoodLogs() {
           (meal.protein ?? 0) * 4;
         return (
           <div
-            key={index}
-            className="flex flex-col items-start lg:items-center lg:flex-row  gap-4 justify-between border border-slate-300 rounded-md pl-4 pr-4 pt-1 pb-1 "
+            key={meal.id}
+            className=" relative flex flex-col items-start lg:items-center lg:flex-row  gap-4 justify-between border border-slate-300 rounded-md pl-4 pr-4 pt-1 pb-1 "
           >
-            <div className="flex w-1/6  flex-row gap-4 items-center">
+            <div className="flex w-1/6 flex-row gap-4 items-center">
               <Image
                 width={50}
                 height={50}
@@ -79,6 +80,8 @@ export default async function FoodLogs() {
                 <p className="text-primary text-2xl font-bold">{kcal}Kcal</p>
               </div>
             )}
+
+            <RemoveMeal id={meal.id}></RemoveMeal>
           </div>
         );
       })}

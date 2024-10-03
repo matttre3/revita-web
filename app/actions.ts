@@ -268,3 +268,48 @@ export const insertFood = async (formData: FormData) => {
     },)
     return redirect("/protected/home");
 }
+
+
+export async function removeMeal(mealId: number) {
+  const supabase = createClient<Database>();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user?.id) {
+    let { data: mealLogs, error } = await supabase
+      .from("mealsLogs")
+      .delete()
+      .eq("id", mealId);
+
+    if (error) {
+      console.error("Error deleting meal logs:", error);
+      return null;
+    }
+    return redirect("/protected/home");
+
+  }
+  
+}
+
+export async function removeWeight(mealId: number) {
+  const supabase = createClient<Database>();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user?.id) {
+    let { data: weightLogs, error } = await supabase
+      .from("weightLogs")
+      .delete()
+      .eq("id", mealId);
+
+    if (error) {
+      console.error("Error deleting weight logs:", error);
+      return null;
+    }
+    return redirect("/protected/home");
+
+  }
+  
+}
