@@ -9,7 +9,7 @@ type RemoveMealProps = {
 export default function RemoveMeal({ id }: RemoveMealProps) {
   return (
     <div
-      className="lg:block absolute right-2 cursor-pointer font-black"
+      className="lg:static absolute top-3 right-3 cursor-pointer "
       onClick={() => {
         removeMeal(id);
       }}

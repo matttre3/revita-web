@@ -51,35 +51,31 @@ export default async function FoodLogs() {
               <p className="text-md font-bold lg:text-xl">{meal.name}</p>
             </div>
 
-            {meal.carbohydrate && (
-              <div className="flex flex-col lg:items-center">
-                <p>Carbohydrates</p>
-                <p className="text-primary text-2xl font-bold">
-                  {meal.carbohydrate}g
-                </p>
-              </div>
-            )}
-            {meal.protein && (
-              <div className="flex flex-col lg:items-center">
-                <p>Proteins</p>
-                <p className="text-primary text-2xl font-bold">
-                  {meal.protein}g
-                </p>
-              </div>
-            )}
-            {meal.fat && (
-              <div className="flex flex-col lg:items-center">
-                <p>Fat</p>
-                <p className="text-primary text-2xl font-bold">{meal.fat}g</p>
-              </div>
-            )}
+            <div className="flex flex-col lg:items-center">
+              <p>Carbohydrates</p>
+              <p className="text-primary text-2xl font-bold">
+                {meal.carbohydrate ?? 0}g
+              </p>
+            </div>
 
-            {(meal.fat || meal.protein || meal.carbohydrate) && (
-              <div className="flex flex-col lg:items-center">
-                <p>Calories</p>
-                <p className="text-primary text-2xl font-bold">{kcal}Kcal</p>
-              </div>
-            )}
+            <div className="flex flex-col lg:items-center">
+              <p>Proteins</p>
+              <p className="text-primary text-2xl font-bold">
+                {meal.protein ?? 0}g
+              </p>
+            </div>
+
+            <div className="flex flex-col lg:items-center">
+              <p>Fat</p>
+              <p className="text-primary text-2xl font-bold">
+                {meal.fat ?? 0}g
+              </p>
+            </div>
+
+            <div className="flex flex-col lg:items-center">
+              <p>Calories</p>
+              <p className="text-primary text-2xl font-bold">{kcal ?? 0}Kcal</p>
+            </div>
 
             <RemoveMeal id={meal.id}></RemoveMeal>
           </div>

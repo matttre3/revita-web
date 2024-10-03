@@ -9,7 +9,7 @@ type RemoveWeightProps = {
 export default function RemoveWeight({ id }: RemoveWeightProps) {
   return (
     <div
-      className="lg:block  right-2 cursor-pointer font-black"
+      className="lg:static  right-2 cursor-pointer font-black"
       onClick={() => {
         removeWeight(id);
       }}
