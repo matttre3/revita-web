@@ -14,7 +14,7 @@ export default function FoodInsert() {
     <>
       <div className="flex justify-between items-center">
         <div className="flex w-full md:justify-between items-center mb-4 sm:flex-row flex-col">
-          <H2>Most recent meal logs</H2>
+          <H2>Today's meal logs</H2>
           <div className="flex lg:flex-row flex-col justify-center text-center lg:text-left  items-center gap-3 lg:gap-7 rounded-md pr-4 pl-4 pt-2 pb-2 ">
             <Button onClick={() => setOpen((prev) => !prev)}>
               Insert a meal
