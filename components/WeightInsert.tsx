@@ -38,14 +38,17 @@ export default function WeightInsert() {
               >
                 &#10005;
               </Button>
-              <form className="flex flex-col gap-4" action={submitWeight}>
+              <form
+                className="flex flex-col gap-4 text-neutral-900"
+                action={submitWeight}
+              >
                 <p>
                   Insert your daily <br></br>
-                  <span className="text-4xl lg:text-6xl font-bold text-primary">
+                  <span className="text-4xl lg:text-6xl font-bold text-primarymodal">
                     weight
                   </span>
                 </p>
-                <p>{date}</p>
+                <p className="text-neutral-900">{date}</p>
                 <Input
                   type="number"
                   step="0.01"

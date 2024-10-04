@@ -9,7 +9,7 @@ import Link from "next/link";
 export default async function Index() {
   return (
     <>
-      <main>
+      <main className="h-full">
         <div className="container mx-auto pl-3 pr-3 h-full">
           <div className="flex flex-col items-center justify-center ">
             <Link href="/">

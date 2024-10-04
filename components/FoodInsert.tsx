@@ -46,13 +46,13 @@ export default function FoodInsert() {
                   &#10005;
                 </Button>
                 <form className="flex flex-col gap-4" action={insertFood}>
-                  <p>
+                  <p className="text-neutral-900">
                     Insert your <br></br>
-                    <span className="text-4xl lg:text-6xl font-bold text-primary">
+                    <span className="text-4xl lg:text-6xl font-bold text-primarymodal">
                       meals
                     </span>
                   </p>
-                  <p>{date}</p>
+                  <p className="text-neutral-900">{date}</p>
                   <div>
                     <div className="flex flex-col gap-3">
                       <InsertMealFlow></InsertMealFlow>

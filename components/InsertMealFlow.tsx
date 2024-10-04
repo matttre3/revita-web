@@ -20,7 +20,10 @@ export default function InsertMealFlow() {
   return (
     <div className="flex flex-col gap-8 w-fit">
       <div className="w-full flex gap-2 flex-col">
-        <Label className="text-2xl text-primary font-bold" htmlFor={"mealName"}>
+        <Label
+          className="text-2xl text-primarymodal font-bold"
+          htmlFor={"mealName"}
+        >
           Meal Name
         </Label>
         <Input
@@ -52,7 +55,7 @@ export default function InsertMealFlow() {
                 alt={meal.name}
               />
               <div className="flex flex-col items-center">
-                <p className="mt-2">{meal.displayName}</p>
+                <p className="mt-2 text-neutral-900">{meal.displayName}</p>
               </div>
             </Label>
           </div>
@@ -63,7 +66,7 @@ export default function InsertMealFlow() {
           return (
             <div key={macronutrient.id} className="flex flex-col gap-2">
               <Label
-                className="text-2xl text-primary font-bold"
+                className="text-2xl text-primarymodal font-bold"
                 htmlFor={macronutrient.name}
               >
                 {macronutrient.displayName}
