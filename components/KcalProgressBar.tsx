@@ -39,11 +39,15 @@ export default async function KcalProgressBar({ PAL }: KcalProgressBarProps) {
   const percentage = (Totalkcal ?? 0) / PAL;
   console.log(percentage * 100);
   return (
-    <div className="w-full bg-gray-200 rounded-full h-4">
+    <div className="w-full bg-gray-200 rounded-full">
       <div
-        className="bg-red-500 h-4 rounded-full transition-all duration-300"
+        className="bg-red-500 flex items-center justify-center rounded-full transition-all duration-300 h-fit w-fit"
         style={{ width: `${percentage * 100}%` }}
-      ></div>
+      >
+        <p className="text-neutral-50">
+          {Totalkcal}/{PAL}
+        </p>
+      </div>
     </div>
   );
 }
