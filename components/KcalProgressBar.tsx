@@ -36,8 +36,10 @@ async function getActualKcal() {
 export default async function KcalProgressBar({ PAL }: KcalProgressBarProps) {
   const Totalkcal = await getActualKcal();
   console.log(PAL);
-  const percentage = (Totalkcal ?? 0) / PAL;
-  console.log(percentage * 100);
+  let percentage = (Totalkcal ?? 0) / PAL;
+  if (percentage >= 1) {
+    percentage = 1;
+  }
   return (
     <div className="w-full bg-gray-200 rounded-full">
       <div
@@ -46,6 +48,7 @@ export default async function KcalProgressBar({ PAL }: KcalProgressBarProps) {
       >
         <p className="text-neutral-50">
           {Totalkcal}/{PAL}
+          <span className="font-bold">{percentage == 1 ? "⚠️⚠️⚠️" : ""}</span>
         </p>
       </div>
     </div>
