@@ -58,7 +58,7 @@ export default async function FoodLogs() {
                 return (
                   <div
                     key={meal.id}
-                    className="relative flex flex-col items-start lg:items-center lg:flex-row gap-4 justify-between border border-slate-300 rounded-md pl-4 pr-4 pt-1 pb-1"
+                    className="relative flex flex-col items-start lg:items-center mb-3 lg:flex-row gap-4 justify-between border border-slate-300 rounded-md pl-4 pr-4 pt-1 pb-1"
                   >
                     <div className="flex w-1/6 flex-row gap-4 items-center">
                       <Image
