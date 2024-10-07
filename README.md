@@ -2,7 +2,7 @@
 
 ![revita-github](https://github.com/user-attachments/assets/6ae1d1c2-9c98-425f-9218-26287619eb13)
 
-➡️<a href="https://pocketdex-matteo-romano.vercel.app/">Check live web app here!</a>⬅️
+➡️<a href="https://revita-web.vercel.app/">Check live web app here!</a>⬅️
 Trial Account: email: trial@revita.it  psw: TrialRevita
 
 Revita is a health-focused app designed to help users manage their fitness goals through intuitive tracking and personalized calorie calculations. The app allows you to:
